@@ -25,7 +25,7 @@ class estudios_trabajadoresTableSeeder extends Seeder
                 'estudios_id'=> $i
             ]);
 
-            if($contador==4){
+            if($contador==51||$contador==101||$contador==151){
                 $contador=0;
             }
         }

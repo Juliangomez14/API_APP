@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\EstudioTrabajador;
+use App\Estudio;
 
 class estudiosTrabajadoresController extends Controller
 {
@@ -14,7 +15,14 @@ class estudiosTrabajadoresController extends Controller
      */
     public function index()
     {
-        return EstudioTrabajador::all();
+        $EstudiosTrabajadores = Estudio::select('trabajadores.id', 'trabajadores.name', 'trabajadores.lastname', 'estudios.titulo_academico', 'estudios.universidad_institucion'
+            ,'estudios.year_finalizacion', 'estudios.lugar', 'estudios.created_at', 'estudios.updated_at')
+            ->join('estudios_trabajadores','estudios_trabajadores.estudios_id','estudios.id')
+            ->join('perfiles_laborales','perfiles_laborales.id','estudios_trabajadores.perfiles_laborales_id')
+            ->join('trabajadores','trabajadores.id','perfiles_laborales.trabajadores_id')
+            ->get();
+
+        return $EstudiosTrabajadores; //EstudioTrabajador::all();
     }
 
     /**
@@ -44,9 +52,17 @@ class estudiosTrabajadoresController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($titulo)
     {
-        //
+        $EstudiosTrabajadores = Estudio::select('estudios.id', 'trabajadores.id as id_trabajador', 'trabajadores.name', 'trabajadores.lastname', 'estudios.titulo_academico', 'estudios.universidad_institucion'
+            ,'estudios.year_finalizacion', 'estudios.lugar', 'estudios.created_at', 'estudios.updated_at')
+            ->join('estudios_trabajadores','estudios_trabajadores.estudios_id','estudios.id')
+            ->join('perfiles_laborales','perfiles_laborales.id','estudios_trabajadores.perfiles_laborales_id')
+            ->join('trabajadores','trabajadores.id','perfiles_laborales.trabajadores_id')
+            ->where('estudios.titulo_academico', '=', $titulo)
+            ->get();
+
+        return $EstudiosTrabajadores; //EstudioTrabajador::all();
     }
 
     /**

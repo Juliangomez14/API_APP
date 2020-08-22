@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\EstadoDisponibilidad;
+use App\Trabajador;
 
 class estadoDisponibilidadesController extends Controller
 {
@@ -46,7 +47,12 @@ class estadoDisponibilidadesController extends Controller
      */
     public function show($id)
     {
-        //
+        $personalDisponible = Trabajador::select('trabajadores.id','trabajadores.name','trabajadores.lastname','trabajadores.email','trabajadores.Telephone'
+                                            ,'trabajadores.adress','estado_disponibilidades.status','trabajadores.created_at','trabajadores.updated_at')
+                                            ->join('estado_disponibilidades','estado_disponibilidades.id','=','trabajadores.id_estado_disponibilidades')
+                                            ->where('estado_disponibilidades.id', '=', $id)
+                                            ->get();
+        return  $personalDisponible;
     }
 
     /**

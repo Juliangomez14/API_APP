@@ -14,7 +14,13 @@ class perfilesLaboralesController extends Controller
      */
     public function index()
     {
-        return PerfilLaboral::all();
+        $PerfilesLaborales = PerfilLaboral::select(
+            'trabajadores.id','trabajadores.name','trabajadores.lastname','perfiles_laborales.perfil'
+            ,'perfiles_laborales.created_at','perfiles_laborales.updated_at'
+            )
+            ->join('trabajadores','trabajadores.id','=','perfiles_laborales.trabajadores_id')
+            ->get();
+        return  $PerfilesLaborales;//PerfilLaboral::all();
     }
 
     /**

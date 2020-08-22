@@ -17,10 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     //return $request->user();
 });
-Route::resource('estadoDisponibilidades','estadoDisponibilidadesController');
-Route::resource('estudios','estudiosController');
-Route::resource('estudiosTrabajadores','estudiosTrabajadoresController');
-Route::resource('experiencias','experienciasController');
-Route::resource('experienciasTrabajadores','experienciasTrabajadoresController');
-Route::resource('perfilesLaborales','perfilesLaboralesController');
-Route::resource('trabajadores','trabajadoresController');
+Route::resource('estadoDisponibilidades','estadoDisponibilidadesController')->except(['create', 'store', 'update', 'destroy','edit']);
+Route::resource('estudios','estudiosController')->except(['create', 'store', 'update', 'destroy','edit']);
+Route::resource('estudiosTrabajadores','estudiosTrabajadoresController')->except(['create', 'store', 'update', 'destroy','edit']);
+Route::resource('experiencias','experienciasController')->except(['create', 'store', 'update', 'destroy','edit']);
+Route::resource('experienciasTrabajadores','experienciasTrabajadoresController')->except(['create', 'store', 'update', 'destroy','edit']);
+Route::resource('perfilesLaborales','perfilesLaboralesController')->except(['create', 'store', 'update', 'destroy','edit']);
+Route::resource('trabajadores','trabajadoresController')->except(['create', 'store', 'update', 'destroy','edit']);

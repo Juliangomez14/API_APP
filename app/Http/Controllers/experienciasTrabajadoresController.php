@@ -14,7 +14,14 @@ class experienciasTrabajadoresController extends Controller
      */
     public function index()
     {
-        return ExperienciaTrabajador::all();
+        $ExperienciaTrabajadores = ExperienciaTrabajador::select(
+                        'trabajadores.id','trabajadores.name','trabajadores.lastname','experiencias.nombre_empresa','experiencias.actividades_ejecutadas'
+                        ,'experiencias.fecha_inicio_contrato','experiencias.fecha_fin_contrato','experiencias.created_at','experiencias.updated_at'
+                        )
+                        ->join('trabajadores','trabajadores.id','=','experiencia_trabajadores.trabajadores_id')
+                        ->join('experiencias','experiencias.id','=','experiencia_trabajadores.experiencias_id')
+                        ->get();
+        return  $ExperienciaTrabajadores;//ExperienciaTrabajador::all();
     }
 
     /**

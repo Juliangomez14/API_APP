@@ -14,7 +14,11 @@ class trabajadoresController extends Controller
      */
     public function index()
     {
-        return Trabajador::all();
+        $trabajadores = Trabajador::select('trabajadores.id','trabajadores.name','trabajadores.lastname','trabajadores.email','trabajadores.Telephone'
+                                            ,'trabajadores.adress','estado_disponibilidades.status','trabajadores.created_at','trabajadores.updated_at')
+                        ->join('estado_disponibilidades','estado_disponibilidades.id','=','trabajadores.id_estado_disponibilidades')
+                        ->get();
+        return $trabajadores; //Trabajador::all();
     }
 
     /**
@@ -24,7 +28,7 @@ class trabajadoresController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -46,7 +50,12 @@ class trabajadoresController extends Controller
      */
     public function show($id)
     {
-        //
+        $trabajadores = Trabajador::select('trabajadores.id','trabajadores.name','trabajadores.lastname','trabajadores.email','trabajadores.Telephone'
+                                            ,'trabajadores.adress','estado_disponibilidades.status','trabajadores.created_at','trabajadores.updated_at')
+                        ->join('estado_disponibilidades','estado_disponibilidades.id','=','trabajadores.id_estado_disponibilidades')
+                        ->where('trabajadores.id', '=', $id)
+                        ->get();
+        return $trabajadores; //Trabajador::all();
     }
 
     /**
